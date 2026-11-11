@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Infinite Express — Launch Reel 9:16</title>
+<style>
+:root{--gold:#ffd27a;--ink:#f3ead6;--bg:#070b18}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:#05070f;color:var(--ink);font:600 16px/1.25 system-ui,-apple-system,Segoe UI,sans-serif;overflow:hidden}
+.stage-wrap{height:100%;display:grid;place-items:center;padding:12px}
+.stage{
+  width:min(100vw - 16px, calc((100vh - 96px) * 9 / 16));
+  aspect-ratio:9/16;
+  max-height:calc(100vh - 96px);
+  position:relative;overflow:hidden;border-radius:18px;
+  background:radial-gradient(ellipse at 50% 20%,#1a2748 0%,#0a1030 45%,#05070f 100%);
+  box-shadow:0 20px 60px rgba(0,0,0,.55);isolation:isolate;
+}
+.sky{position:absolute;inset:0;background:
+  radial-gradient(circle at 70% 18%,rgba(255,210,122,.18),transparent 28%),
+  linear-gradient(180deg,#1b2a52 0%,#0c1430 48%,#08101f 100%)}
+.stars{position:absolute;inset:0;opacity:.55;background-image:
+  radial-gradient(1.5px 1.5px at 12% 18%,#fff,transparent),
+  radial-gradient(1px 1px at 28% 40%,#fff,transparent),
+  radial-gradient(1.5px 1.5px at 66% 22%,#fff,transparent),
+  radial-gradient(1px 1px at 82% 36%,#fff,transparent),
+  radial-gradient(1px 1px at 48% 12%,#fff,transparent)}
+.ground{position:absolute;left:-10%;right:-10%;bottom:0;height:38%;
+  background:linear-gradient(180deg,#3f7e38 0%,#2d5c2a 40%,#1e3d1c 100%);
+  transform-origin:50% 0}
+.tracks{position:absolute;left:-20%;right:-20%;bottom:18%;height:28px;
+  background:repeating-linear-gradient(90deg,#6b4a2f 0 18px,transparent 18px 34px);
+  border-top:3px solid #b8c0c8;border-bottom:3px solid #b8c0c8;opacity:.9}
+.mist{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,transparent 40%,rgba(8,14,32,.35) 78%,rgba(8,14,32,.7) 100%)}
+.beam{position:absolute;left:58%;top:46%;width:0;height:0;opacity:0;
+  border-left:10px solid transparent;border-right:70px solid transparent;border-top:18px solid rgba(255,241,196,.22);
+  transform:rotate(8deg);filter:blur(.5px)}
+.train{position:absolute;left:8%;bottom:22%;width:120%;display:flex;gap:8px;transform:translateX(18%);opacity:0}
+.loco{width:92px;height:58px;position:relative;flex:0 0 auto}
+.loco .body{position:absolute;inset:18px 8px 8px 0;background:#1a1a1a;border-radius:8px 4px 4px 4px}
+.loco .boiler{position:absolute;left:8px;top:22px;width:54px;height:22px;background:#111;border-radius:11px}
+.loco .band{position:absolute;left:18px;top:22px;width:3px;height:22px;background:var(--gold)}
+.loco .cab{position:absolute;right:4px;top:10px;width:28px;height:36px;background:#c62828;border-radius:3px}
+.loco .stack{position:absolute;left:42px;top:4px;width:10px;height:20px;background:#111;border-radius:3px 3px 0 0}
+.loco .lamp{position:absolute;left:58px;top:24px;width:10px;height:10px;border-radius:50%;background:#fff3b0;box-shadow:0 0 16px #ffe6a0}
+.coach{width:70px;height:44px;margin-top:14px;background:linear-gradient(180deg,#6a7168 0 55%,#8a2332 55% 100%);border-radius:4px;position:relative;flex:0 0 auto;box-shadow:inset 0 10px 0 #4b5160}
+.coach.open{background:linear-gradient(180deg,#f1e3c4 0 55%,#8a2332 55% 100%)}
+.coach::after{content:"";position:absolute;left:8px;right:8px;top:12px;height:10px;background:repeating-linear-gradient(90deg,#9fd3ff 0 10px,transparent 10px 16px);opacity:.7}
+.smoke{position:absolute;left:48px;top:-8px;width:14px;height:14px;border-radius:50%;background:rgba(220,220,220,.55);opacity:0}
+.nameboard{position:absolute;left:50%;top:14%;transform:translateX(-50%) scale(.92);padding:10px 18px;border:2px solid var(--gold);background:rgba(22,32,51,.88);letter-spacing:2px;font-size:13px;color:var(--gold);opacity:0;white-space:nowrap}
+.caption{position:absolute;left:6%;right:6%;bottom:9%;min-height:72px;padding:14px 16px;border-radius:14px;
+  background:rgba(10,14,28,.72);border:1px solid rgba(255,210,122,.28);backdrop-filter:blur(8px);
+  font-size:clamp(15px,3.4vw,20px);font-weight:700;color:#fff;text-wrap:balance}
+.brand{position:absolute;left:6%;top:6%;font-size:11px;letter-spacing:1.4px;color:var(--gold);opacity:.85}
+.controls{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+button{font:inherit;border-radius:12px;border:1px solid rgba(255,210,120,.4);background:#262b4a;color:var(--ink);padding:12px 16px;min-height:48px;cursor:pointer}
+button:active{transform:scale(.97)}
+.note{margin-top:8px;text-align:center;color:#a9a48f;font-size:12px;max-width:420px}
+/* timeline */
+.playing .nameboard{animation:fadeIn 1.2s ease forwards}
+.playing .train{animation:trainIn 22s ease forwards}
+.playing .smoke{animation:puff 1.4s ease-out infinite}
+.playing .beam{animation:beamIn 2s ease 1.2s forwards}
+.playing .c1{animation:unlock .6s ease 4.2s forwards}
+.playing .c2{animation:unlock .6s ease 5.0s forwards}
+.playing .c3{animation:unlock .6s ease 5.8s forwards}
+.playing .c4{animation:unlock .6s ease 6.6s forwards}
+.playing .c5{animation:unlock .6s ease 7.4s forwards}
+@keyframes fadeIn{to{opacity:1;transform:translateX(-50%) scale(1)}}
+@keyframes trainIn{0%{opacity:0;transform:translateX(22%)}12%{opacity:1;transform:translateX(8%)}100%{opacity:1;transform:translateX(-8%)}}
+@keyframes puff{0%{opacity:0;transform:translate(0,0) scale(.6)}40%{opacity:.7}100%{opacity:0;transform:translate(-10px,-36px) scale(1.6)}}
+@keyframes beamIn{to{opacity:1}}
+@keyframes unlock{to{background:linear-gradient(180deg,#f1e3c4 0 55%,#8a2332 55% 100%)}}
+</style>
+</head>
+<body>
+<div class="stage-wrap">
+  <div>
+    <div class="stage" id="stage" aria-label="9:16 launch reel stage">
+      <div class="sky"></div>
+      <div class="stars"></div>
+      <div class="nameboard">UNITY STATION</div>
+      <div class="ground"></div>
+      <div class="tracks"></div>
+      <div class="beam"></div>
+      <div class="train" id="train">
+        <div class="loco">
+          <div class="stack"></div>
+          <div class="smoke"></div>
+          <div class="body"></div>
+          <div class="boiler"></div>
+          <div class="band"></div>
+          <div class="cab"></div>
+          <div class="lamp"></div>
+        </div>
+        <div class="coach c1"></div>
+        <div class="coach c2"></div>
+        <div class="coach c3"></div>
+        <div class="coach c4"></div>
+        <div class="coach c5"></div>
+      </div>
+      <div class="mist"></div>
+      <div class="brand">THE INFINITE EXPRESS</div>
+      <div class="caption" id="cap">Tap Play · 9:16 Reel</div>
+    </div>
+    <div class="controls">
+      <button type="button" id="play">▶ Play reel + VO</button>
+      <button type="button" id="mute">VO on</button>
+    </div>
+    <p class="note">Open this file, press Play, fullscreen the stage, and screen-record for Instagram. Paste the script into ElevenLabs (Drew) once your plan allows audio export.</p>
+  </div>
+</div>
+<script>
+const lines=[
+  {t:0, text:'Your seat on this train? It\'s not booked yet.'},
+  {t:3.0, text:'This is The Infinite Express — a living social train from Unity Station.'},
+  {t:8.0, text:'We need 100 followers to fill the coaches and make this train depart.'},
+  {t:13.0, text:'Every 10 followers unlocks one coach. 100 means 10 coaches — 100 seats.'},
+  {t:18.0, text:'Search your username. Find your seat. Download your ticket.'},
+  {t:22.0, text:'Let\'s have some fun from Unity Station. The Infinite Express is boarding. Are you on it?'}
+];
+const fullVO=lines.map(l=>l.text).join(' ');
+const stage=$('stage'),cap=$('cap');
+let voOn=true,timers=[],utter=null;
+function $(id){return document.getElementById(id)}
+function clearTimers(){timers.forEach(clearTimeout);timers=[];if(utter&&speechSynthesis.speaking)speechSynthesis.cancel()}
+function setCap(t){cap.textContent=t}
+function play(){
+  clearTimers();
+  stage.classList.remove('playing');void stage.offsetWidth;stage.classList.add('playing');
+  lines.forEach(l=>timers.push(setTimeout(()=>setCap(l.text),l.t*1000)));
+  timers.push(setTimeout(()=>setCap('Follow · Board · Ride'),25500));
+  if(voOn&&'speechSynthesis' in window){
+    utter=new SpeechSynthesisUtterance(fullVO);
+    utter.rate=1.02;utter.pitch=1;utter.lang='en-US';
+    const voices=speechSynthesis.getVoices();
+    const pref=voices.find(v=>/en(-|_)US/i.test(v.lang)&&/male|david|guy|aaron|fred/i.test(v.name))||voices.find(v=>/en/i.test(v.lang));
+    if(pref)utter.voice=pref;
+    speechSynthesis.cancel();speechSynthesis.speak(utter);
+  }
+}
+$('play').onclick=play;
+$('mute').onclick=()=>{voOn=!voOn;$('mute').textContent=voOn?'VO on':'VO muted';if(!voOn&&speechSynthesis.speaking)speechSynthesis.cancel()};
+speechSynthesis.getVoices();
+</script>
+</body>
+</html>

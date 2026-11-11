@@ -1,0 +1,5 @@
+{
+  "updatedAt": "2026-11-12T00:18:00+05:30",
+  "note": "Admin roster. Optional coach (1-10) + seat (1-10) pin a rider. Omit them to fill the next free seat from the front. See ROSTER.md.",
+  "passengers": []
+}

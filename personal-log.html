@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Personal Log — Conceptual Analytics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #1a1f1c;
+      --muted: #5c6b62;
+      --line: #d4ddd6;
+      --surface: #f7f9f6;
+      --panel: #ffffff;
+      --accent: #0f6b4c;
+      --accent-soft: #e4f3ec;
+      --warn: #8a4b12;
+      --warn-soft: #f7efe4;
+      --ig: #1e3a5f;
+      --ig-soft: #e8eef5;
+      --shadow: 0 1px 2px rgba(26, 31, 28, 0.04), 0 8px 24px rgba(26, 31, 28, 0.06);
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "DM Sans", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse 80% 50% at 10% -10%, #dceee4 0%, transparent 55%),
+        radial-gradient(ellipse 60% 40% at 100% 0%, #e4ebf2 0%, transparent 50%),
+        linear-gradient(180deg, #eef2ef 0%, var(--surface) 40%, #e8ece9 100%);
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 3rem;
+    }
+
+    header {
+      margin-bottom: 1.75rem;
+      animation: rise 0.5s ease both;
+    }
+
+    header h1 {
+      margin: 0 0 0.35rem;
+      font-size: clamp(1.6rem, 3vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 42ch;
+    }
+
+    .meta-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1rem;
+      align-items: center;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.4rem 0.75rem;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-family: "JetBrains Mono", monospace;
+    }
+
+    .chip strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .grid {
+      display: grid;
+      gap: 1.1rem;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 860px) {
+      .grid {
+        grid-template-columns: 1.1fr 1fr;
+        grid-template-areas:
+          "users updates"
+          "users ig"
+          "session session";
+      }
+      .panel-users { grid-area: users; }
+      .panel-updates { grid-area: updates; }
+      .panel-ig { grid-area: ig; }
+      .panel-session { grid-area: session; }
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.15rem 1.2rem 1.25rem;
+      animation: rise 0.55s ease both;
+    }
+
+    .panel-users { animation-delay: 0.05s; }
+    .panel-updates { animation-delay: 0.1s; }
+    .panel-ig { animation-delay: 0.15s; }
+    .panel-session { animation-delay: 0.2s; }
+
+    .panel h2 {
+      margin: 0 0 0.25rem;
+      font-size: 1.05rem;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+
+    .panel .hint {
+      margin: 0 0 0.9rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+
+    textarea, input[type="text"] {
+      width: 100%;
+      font-family: "DM Sans", sans-serif;
+      font-size: 0.95rem;
+      color: var(--ink);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.7rem 0.8rem;
+      resize: vertical;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    textarea:focus, input[type="text"]:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    textarea {
+      min-height: 140px;
+      line-height: 1.45;
+    }
+
+    .field { margin-bottom: 0.85rem; }
+
+    .count-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      margin: 0.65rem 0 0.85rem;
+      padding: 0.65rem 0.8rem;
+      background: var(--accent-soft);
+      border-radius: 10px;
+    }
+
+    .count-row span {
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .count-row .num {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 1.45rem;
+      font-weight: 500;
+      color: var(--accent);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    button {
+      font-family: "DM Sans", sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      padding: 0.55rem 0.95rem;
+      cursor: pointer;
+      transition: transform 0.12s, opacity 0.12s, background 0.15s;
+    }
+
+    button:active { transform: scale(0.98); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover { background: #0c5a3f; }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--line);
+    }
+
+    .btn-ghost:hover {
+      background: var(--surface);
+      color: var(--ink);
+    }
+
+    .btn-danger {
+      background: transparent;
+      color: #8b2e2e;
+      border: 1px solid #e8cfcf;
+    }
+
+    .btn-danger:hover { background: #faf0f0; }
+
+    .panel-updates .count-row {
+      background: var(--warn-soft);
+    }
+
+    .panel-updates .count-row span,
+    .panel-updates .count-row .num { color: var(--warn); }
+
+    .panel-updates textarea:focus {
+      border-color: var(--warn);
+      box-shadow: 0 0 0 3px var(--warn-soft);
+    }
+
+    .panel-ig .count-row {
+      background: var(--ig-soft);
+    }
+
+    .panel-ig .count-row span,
+    .panel-ig .count-row .num { color: var(--ig); }
+
+    .panel-ig textarea:focus {
+      border-color: var(--ig);
+      box-shadow: 0 0 0 3px var(--ig-soft);
+    }
+
+    .session-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .session-head h2 { margin: 0; }
+
+    .log-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      max-height: 420px;
+      overflow-y: auto;
+    }
+
+    .log-item {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.85rem 0.95rem;
+      background: var(--surface);
+      animation: fadein 0.35s ease both;
+    }
+
+    .log-item-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.55rem;
+    }
+
+    .log-time {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .log-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .stat {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      font-family: "JetBrains Mono", monospace;
+    }
+
+    .stat-users { background: var(--accent-soft); color: var(--accent); }
+    .stat-updates { background: var(--warn-soft); color: var(--warn); }
+    .stat-ig { background: var(--ig-soft); color: var(--ig); }
+
+    .log-section {
+      margin-top: 0.5rem;
+    }
+
+    .log-section h3 {
+      margin: 0 0 0.25rem;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .log-section pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: "DM Sans", sans-serif;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      color: var(--ink);
+    }
+
+    .empty {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 1.25rem;
+      right: 1.25rem;
+      background: var(--ink);
+      color: #fff;
+      padding: 0.65rem 1rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition: opacity 0.25s, transform 0.25s;
+      z-index: 20;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadein {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Personal Log</h1>
+      <p>Manual session notes for usernames, managed updates, and Instagram requests — stored only in this browser for your conceptual analytics.</p>
+      <div class="meta-bar">
+        <div class="chip">Now <strong id="liveClock">—</strong></div>
+        <div class="chip">Sessions <strong id="sessionCount">0</strong></div>
+        <div class="chip">Usernames total <strong id="totalUsernames">0</strong></div>
+      </div>
+    </header>
+
+    <div class="grid">
+      <section class="panel panel-users">
+        <h2>Usernames</h2>
+        <p class="hint">Paste usernames — one per line, or separated by commas / spaces. Count updates as you type.</p>
+        <div class="field">
+          <label for="usernames">Paste usernames</label>
+          <textarea id="usernames" placeholder="@alice&#10;@bob&#10;charlie"></textarea>
+        </div>
+        <div class="count-row">
+          <span>Unique username count</span>
+          <div class="num" id="usernameCount">0</div>
+        </div>
+        <div class="field">
+          <label for="usernameNote">Optional note</label>
+          <input type="text" id="usernameNote" placeholder="e.g. batch from today’s DMs" />
+        </div>
+      </section>
+
+      <section class="panel panel-updates">
+        <h2>Updates &amp; managed logs</h2>
+        <p class="hint">What changed, what you handled, status notes.</p>
+        <div class="field">
+          <label for="updates">Updates / managed logs</label>
+          <textarea id="updates" placeholder="• Fixed reply template&#10;• Closed 3 open threads&#10;• Scheduled follow-up"></textarea>
+        </div>
+        <div class="count-row">
+          <span>Non-empty lines</span>
+          <div class="num" id="updatesCount">0</div>
+        </div>
+      </section>
+
+      <section class="panel panel-ig">
+        <h2>Instagram requests &amp; feedback</h2>
+        <p class="hint">Incoming requests, feedback themes, anything worth tracking later.</p>
+        <div class="field">
+          <label for="instagram">Requests &amp; feedback</label>
+          <textarea id="instagram" placeholder="• Collab ask from @…&#10;• Feedback: faster replies&#10;• Feature request: …"></textarea>
+        </div>
+        <div class="count-row">
+          <span>Non-empty lines</span>
+          <div class="num" id="igCount">0</div>
+        </div>
+      </section>
+
+      <section class="panel panel-session">
+        <div class="session-head">
+          <div>
+            <h2>Session log</h2>
+            <p class="hint" style="margin-bottom:0">Each save stamps the current time and stores a snapshot of the three boxes above.</p>
+          </div>
+          <div class="actions">
+            <button type="button" class="btn-primary" id="btnSave">Save session with time</button>
+            <button type="button" class="btn-ghost" id="btnExport">Export JSON</button>
+            <button type="button" class="btn-ghost" id="btnClearForm">Clear form</button>
+            <button type="button" class="btn-danger" id="btnClearAll">Clear all logs</button>
+          </div>
+        </div>
+        <ul class="log-list" id="logList"></ul>
+      </section>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script>
+    const STORAGE_KEY = "personal-log-v1";
+
+    const el = {
+      usernames: document.getElementById("usernames"),
+      usernameNote: document.getElementById("usernameNote"),
+      usernameCount: document.getElementById("usernameCount"),
+      updates: document.getElementById("updates"),
+      updatesCount: document.getElementById("updatesCount"),
+      instagram: document.getElementById("instagram"),
+      igCount: document.getElementById("igCount"),
+      logList: document.getElementById("logList"),
+      liveClock: document.getElementById("liveClock"),
+      sessionCount: document.getElementById("sessionCount"),
+      totalUsernames: document.getElementById("totalUsernames"),
+      toast: document.getElementById("toast"),
+      btnSave: document.getElementById("btnSave"),
+      btnExport: document.getElementById("btnExport"),
+      btnClearForm: document.getElementById("btnClearForm"),
+      btnClearAll: document.getElementById("btnClearAll"),
+    };
+
+    function parseUsernames(raw) {
+      const parts = raw
+        .split(/[\n,;\s]+/)
+        .map((s) => s.trim())
+        .filter(Boolean)
+        .map((s) => (s.startsWith("@") ? s : "@" + s.replace(/^@+/, "")));
+      return [...new Set(parts.map((s) => s.toLowerCase()))].map((lower) => {
+        const original = parts.find((p) => p.toLowerCase() === lower);
+        return original || lower;
+      });
+    }
+
+    function countLines(raw) {
+      return raw
+        .split("\n")
+        .map((l) => l.trim())
+        .filter(Boolean).length;
+    }
+
+    function loadSessions() {
+      try {
+        const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+        return Array.isArray(data) ? data : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveSessions(sessions) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
+    }
+
+    function formatTime(iso) {
+      const d = new Date(iso);
+      return d.toLocaleString(undefined, {
+        weekday: "short",
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      });
+    }
+
+    function tickClock() {
+      el.liveClock.textContent = new Date().toLocaleString(undefined, {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        day: "numeric",
+        month: "short",
+      });
+    }
+
+    function updateLiveCounts() {
+      const users = parseUsernames(el.usernames.value);
+      el.usernameCount.textContent = String(users.length);
+      el.updatesCount.textContent = String(countLines(el.updates.value));
+      el.igCount.textContent = String(countLines(el.instagram.value));
+    }
+
+    function updateHeaderStats(sessions) {
+      el.sessionCount.textContent = String(sessions.length);
+      const total = sessions.reduce((sum, s) => sum + (s.usernameCount || 0), 0);
+      el.totalUsernames.textContent = String(total);
+    }
+
+    function showToast(msg) {
+      el.toast.textContent = msg;
+      el.toast.classList.add("show");
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => el.toast.classList.remove("show"), 2200);
+    }
+
+    function renderLogs() {
+      const sessions = loadSessions();
+      updateHeaderStats(sessions);
+
+      if (!sessions.length) {
+        el.logList.innerHTML = `<li class="empty">No sessions yet. Fill the boxes above and hit “Save session with time”.</li>`;
+        return;
+      }
+
+      el.logList.innerHTML = sessions
+        .map(
+          (s) => `
+        <li class="log-item" data-id="${s.id}">
+          <div class="log-item-head">
+            <span class="log-time">${formatTime(s.savedAt)}</span>
+            <div class="log-stats">
+              <span class="stat stat-users">${s.usernameCount} users</span>
+              <span class="stat stat-updates">${s.updatesLineCount} updates</span>
+              <span class="stat stat-ig">${s.igLineCount} IG notes</span>
+            </div>
+          </div>
+          ${
+            s.usernameNote
+              ? `<div class="log-section"><h3>Note</h3><pre>${escapeHtml(s.usernameNote)}</pre></div>`
+              : ""
+          }
+          ${
+            s.usernames.length
+              ? `<div class="log-section"><h3>Usernames (${s.usernameCount})</h3><pre>${escapeHtml(s.usernames.join(", "))}</pre></div>`
+              : ""
+          }
+          ${
+            s.updates.trim()
+              ? `<div class="log-section"><h3>Updates & managed logs</h3><pre>${escapeHtml(s.updates)}</pre></div>`
+              : ""
+          }
+          ${
+            s.instagram.trim()
+              ? `<div class="log-section"><h3>Instagram requests & feedback</h3><pre>${escapeHtml(s.instagram)}</pre></div>`
+              : ""
+          }
+          <div class="actions" style="margin-top:0.65rem">
+            <button type="button" class="btn-ghost btn-load" data-id="${s.id}">Load into form</button>
+            <button type="button" class="btn-danger btn-delete" data-id="${s.id}">Delete</button>
+          </div>
+        </li>`
+        )
+        .join("");
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function clearForm() {
+      el.usernames.value = "";
+      el.usernameNote.value = "";
+      el.updates.value = "";
+      el.instagram.value = "";
+      updateLiveCounts();
+    }
+
+    el.usernames.addEventListener("input", updateLiveCounts);
+    el.updates.addEventListener("input", updateLiveCounts);
+    el.instagram.addEventListener("input", updateLiveCounts);
+
+    el.btnSave.addEventListener("click", () => {
+      const usernames = parseUsernames(el.usernames.value);
+      const updates = el.updates.value.trim();
+      const instagram = el.instagram.value.trim();
+      const usernameNote = el.usernameNote.value.trim();
+
+      if (!usernames.length && !updates && !instagram) {
+        showToast("Add something before saving.");
+        return;
+      }
+
+      const sessions = loadSessions();
+      sessions.unshift({
+        id: crypto.randomUUID(),
+        savedAt: new Date().toISOString(),
+        usernames,
+        usernameCount: usernames.length,
+        usernameNote,
+        updates,
+        updatesLineCount: countLines(updates),
+        instagram,
+        igLineCount: countLines(instagram),
+      });
+      saveSessions(sessions);
+      clearForm();
+      renderLogs();
+      showToast("Session saved with timestamp.");
+    });
+
+    el.btnClearForm.addEventListener("click", () => {
+      clearForm();
+      showToast("Form cleared.");
+    });
+
+    el.btnClearAll.addEventListener("click", () => {
+      if (!loadSessions().length) {
+        showToast("Nothing to clear.");
+        return;
+      }
+      if (!confirm("Delete all saved sessions from this browser?")) return;
+      saveSessions([]);
+      renderLogs();
+      showToast("All sessions cleared.");
+    });
+
+    el.btnExport.addEventListener("click", () => {
+      const sessions = loadSessions();
+      const blob = new Blob([JSON.stringify(sessions, null, 2)], {
+        type: "application/json",
+      });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `personal-log-${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+      showToast("Exported JSON.");
+    });
+
+    el.logList.addEventListener("click", (e) => {
+      const btn = e.target.closest("button");
+      if (!btn) return;
+      const id = btn.dataset.id;
+      const sessions = loadSessions();
+      const entry = sessions.find((s) => s.id === id);
+      if (!entry) return;
+
+      if (btn.classList.contains("btn-delete")) {
+        if (!confirm("Delete this session?")) return;
+        saveSessions(sessions.filter((s) => s.id !== id));
+        renderLogs();
+        showToast("Session deleted.");
+        return;
+      }
+
+      if (btn.classList.contains("btn-load")) {
+        el.usernames.value = entry.usernames.join("\n");
+        el.usernameNote.value = entry.usernameNote || "";
+        el.updates.value = entry.updates || "";
+        el.instagram.value = entry.instagram || "";
+        updateLiveCounts();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        showToast("Loaded into form.");
+      }
+    });
+
+    tickClock();
+    setInterval(tickClock, 1000);
+    updateLiveCounts();
+    renderLogs();
+  </script>
+</body>
+</html>
