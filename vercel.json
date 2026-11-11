@@ -2,7 +2,7 @@
   "version": 2,
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/", "destination": "/infinite-express-3d.html" }
+    { "source": "/", "destination": "/infinite-express-3d" }
   ],
   "headers": [
     {
