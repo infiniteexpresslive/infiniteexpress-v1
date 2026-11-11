@@ -1,19 +1,9 @@
 {
   "name": "infinite-express",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "directories": {
-    "doc": "docs"
-  },
+  "private": true,
+  "description": "The Infinite Express — Unity Station boarding experience",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "dependencies": {
-    "playwright": "^1.65.0"
+    "start": "npx --yes serve -l 5173 ."
   }
 }

@@ -280,7 +280,7 @@ function applyRoster(list){
  });
  followers=Math.max(followers,rosterCount,seats.filter(Boolean).length);saveState();
 }
-const ticketImg=new Image();ticketImg.decoding='async';ticketImg.src='assets/ticket-template.jpg';
+const ticketImg=new Image();ticketImg.decoding='async';ticketImg.src='assets/ticket-template.png';
 function batchSerial(h,k){let s=(k+1)*9973;for(let i=0;i<(h||'').length;i++)s=(s*33+h.charCodeAt(i))>>>0;return String(100000+(s%900000))}
 function downloadTicket(k){
  const p=seats[k];if(!p)return toast('No passenger on that seat.');
