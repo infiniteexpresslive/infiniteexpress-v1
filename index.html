@@ -96,6 +96,7 @@ small,.mu{color:var(--muted)}
 .seatRow .st.open{color:#9fe6b0;border-color:rgba(120,220,150,.35)}
 .seatRow .st.taken{color:#ffd27a}
 .seatRow .st.lock{color:#a9a48f}
+.seatRow .st.book{color:#ffd27a;border-color:rgba(255,210,120,.45);background:rgba(255,210,120,.08)}
 #stline{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .chip{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:999px;background:rgba(10,13,28,.55);border:1px solid rgba(255,210,120,.18);font-size:11px;color:var(--ink);white-space:nowrap}
 .chip b{color:var(--gold);font-weight:700}
@@ -143,7 +144,90 @@ body.sheet-open #dock{opacity:0;pointer-events:none;transition:opacity .2s}
   #volBtn{top:calc(180px + var(--safe-t));right:calc(12px + var(--safe-r))}
   #helpPop{left:auto;right:calc(12px + var(--safe-r));top:calc(236px + var(--safe-t));bottom:auto;width:min(300px,calc(100vw - 24px));max-height:min(70vh,520px)}
 }
-</style></head><body>
+/* Full-screen loading (PC + mobile) */
+#boot{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:calc(24px + var(--safe-t)) 24px calc(24px + var(--safe-b));background:
+  radial-gradient(ellipse 80% 55% at 50% 35%,rgba(58,69,120,.55),transparent 70%),
+  linear-gradient(165deg,#070b18 0%,#0f152c 45%,#1a1430 100%);
+  transition:opacity .55s ease,visibility .55s ease}
+#boot.out{opacity:0;visibility:hidden;pointer-events:none}
+.bootInner{width:min(420px,94vw);text-align:center}
+.bootLoco{width:min(340px,88vw);margin:0 auto;filter:drop-shadow(0 12px 28px rgba(0,0,0,.55));animation:bootBob 2.2s ease-in-out infinite}
+.bootLoco svg{display:block;width:100%;height:auto}
+.bootLoco .smoke{animation:bootSmoke 2.4s ease-out infinite;transform-origin:center}
+.bootLoco .smoke2{animation-delay:.7s}
+.bootLoco .smoke3{animation-delay:1.3s}
+.bootLoco .wheel{transform-box:fill-box;transform-origin:center;animation:bootWheel 1.1s linear infinite}
+.bootLoco .rod{transform-box:fill-box;transform-origin:left center;animation:bootRod 1.1s linear infinite}
+.bootTitle{margin-top:18px;font:800 clamp(15px,3.6vw,18px)/1.2 system-ui,-apple-system,Segoe UI,sans-serif;letter-spacing:.14em;color:var(--gold)}
+.bootSub{margin-top:8px;min-height:1.35em;font:600 13px/1.35 system-ui,-apple-system,Segoe UI,sans-serif;color:var(--muted)}
+.bootBar{margin:18px auto 0;width:100%;height:8px;border-radius:999px;background:rgba(255,210,120,.12);border:1px solid rgba(255,210,120,.28);overflow:hidden}
+.bootBar>i{display:block;height:100%;width:0%;border-radius:inherit;background:linear-gradient(90deg,#e08a3a,#ffd27a 55%,#ffe9b5);box-shadow:0 0 16px rgba(255,210,120,.45);transition:width .35s ease}
+.bootPct{margin-top:10px;font:700 12px/1 ui-monospace,Consolas,monospace;color:var(--gold);letter-spacing:1px;font-variant-numeric:tabular-nums}
+@keyframes bootBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes bootWheel{to{transform:rotate(360deg)}}
+@keyframes bootRod{0%{transform:rotate(-12deg)}50%{transform:rotate(12deg)}100%{transform:rotate(-12deg)}}
+@keyframes bootSmoke{0%{opacity:0;transform:translateY(6px) scale(.55)}25%{opacity:.85}100%{opacity:0;transform:translateY(-28px) scale(1.25)}}
+body.booting #top,body.booting #dock,body.booting #dockToggle,body.booting #igBtn,body.booting #igTip,body.booting #searchBtn,body.booting #infoBtn,body.booting #volBtn,body.booting #helpPop,body.booting #sheet,body.booting #scrim,body.booting #msg{visibility:hidden}
+</style></head><body class="booting">
+<div id="boot" role="status" aria-live="polite" aria-busy="true">
+  <div class="bootInner">
+    <div class="bootLoco" aria-hidden="true">
+      <svg viewBox="0 0 340 150" xmlns="http://www.w3.org/2000/svg">
+        <!-- rails -->
+        <rect x="8" y="128" width="324" height="4" fill="#8a93a8"/>
+        <rect x="8" y="134" width="324" height="3" fill="#5c6478"/>
+        <g fill="#6b4a2f" opacity=".85">
+          <rect x="28" y="132" width="18" height="8" rx="1"/><rect x="68" y="132" width="18" height="8" rx="1"/>
+          <rect x="108" y="132" width="18" height="8" rx="1"/><rect x="148" y="132" width="18" height="8" rx="1"/>
+          <rect x="188" y="132" width="18" height="8" rx="1"/><rect x="228" y="132" width="18" height="8" rx="1"/>
+          <rect x="268" y="132" width="18" height="8" rx="1"/><rect x="300" y="132" width="18" height="8" rx="1"/>
+        </g>
+        <!-- smoke -->
+        <g fill="#d8d8d8" opacity=".9">
+          <ellipse class="smoke" cx="236" cy="28" rx="10" ry="8"/>
+          <ellipse class="smoke smoke2" cx="248" cy="18" rx="13" ry="10"/>
+          <ellipse class="smoke smoke3" cx="262" cy="10" rx="11" ry="8"/>
+        </g>
+        <!-- tender -->
+        <rect x="18" y="58" width="58" height="46" rx="3" fill="#1a1a1a"/>
+        <rect x="18" y="58" width="58" height="10" fill="#c1352c"/>
+        <rect x="22" y="72" width="50" height="8" fill="#2b2b2b"/>
+        <rect x="26" y="86" width="18" height="10" fill="#111"/><rect x="50" y="86" width="18" height="10" fill="#111"/>
+        <!-- cab -->
+        <rect x="76" y="42" width="52" height="62" rx="2" fill="#c1352c"/>
+        <rect x="76" y="42" width="52" height="8" fill="#1a1a1a"/>
+        <rect x="84" y="56" width="16" height="16" fill="#0b1020"/><rect x="104" y="56" width="16" height="16" fill="#0b1020"/>
+        <rect x="86" y="58" width="12" height="12" fill="#9fd3ff" opacity=".55"/><rect x="106" y="58" width="12" height="12" fill="#9fd3ff" opacity=".55"/>
+        <!-- boiler -->
+        <rect x="128" y="54" width="120" height="42" rx="18" fill="#1f1f1f"/>
+        <rect x="148" y="58" width="6" height="34" fill="#c9a227"/><rect x="178" y="58" width="6" height="34" fill="#c9a227"/><rect x="208" y="58" width="6" height="34" fill="#c9a227"/>
+        <!-- dome + stack -->
+        <ellipse cx="168" cy="52" rx="12" ry="8" fill="#c9a227"/>
+        <rect x="228" y="28" width="16" height="28" rx="2" fill="#1a1a1a"/>
+        <rect x="224" y="24" width="24" height="8" rx="2" fill="#c9a227"/>
+        <!-- headlight + cowcatcher -->
+        <circle cx="252" cy="70" r="7" fill="#fff3c4"/><circle cx="252" cy="70" r="4" fill="#ffe08a"/>
+        <polygon points="248,96 268,112 248,112" fill="#6a6f78"/>
+        <rect x="248" y="88" width="14" height="10" fill="#2a2a2a"/>
+        <!-- cylinders -->
+        <rect x="214" y="92" width="28" height="12" rx="3" fill="#4a4f58"/>
+        <!-- coupling rod -->
+        <g transform="translate(156 108)"><g class="rod"><rect x="0" y="-2" width="72" height="4" rx="1" fill="#c9a227"/></g></g>
+        <!-- wheels: drivers + leading -->
+        <g transform="translate(112 112)"><g class="wheel"><circle r="18" fill="#2a2a2a"/><circle r="11" fill="#c1352c"/><circle r="4" fill="#c9a227"/><rect x="-2" y="-11" width="4" height="22" fill="#c9a227"/></g></g>
+        <g transform="translate(156 112)"><g class="wheel"><circle r="18" fill="#2a2a2a"/><circle r="11" fill="#c1352c"/><circle r="4" fill="#c9a227"/><rect x="-2" y="-11" width="4" height="22" fill="#c9a227"/></g></g>
+        <g transform="translate(200 112)"><g class="wheel"><circle r="18" fill="#2a2a2a"/><circle r="11" fill="#c1352c"/><circle r="4" fill="#c9a227"/><rect x="-2" y="-11" width="4" height="22" fill="#c9a227"/></g></g>
+        <g transform="translate(236 116)"><g class="wheel" style="animation-duration:.85s"><circle r="12" fill="#2a2a2a"/><circle r="6" fill="#4a4f58"/><circle r="2.5" fill="#c9a227"/></g></g>
+        <g transform="translate(42 118)"><g class="wheel" style="animation-duration:1.3s"><circle r="10" fill="#2a2a2a"/><circle r="4" fill="#4a4f58"/></g></g>
+        <g transform="translate(62 118)"><g class="wheel" style="animation-duration:1.3s"><circle r="10" fill="#2a2a2a"/><circle r="4" fill="#4a4f58"/></g></g>
+      </svg>
+    </div>
+    <div class="bootTitle">THE INFINITE EXPRESS</div>
+    <div class="bootSub" id="bootSub">Pulling into Unity Station…</div>
+    <div class="bootBar" aria-hidden="true"><i id="bootFill"></i></div>
+    <div class="bootPct" id="bootPct">0%</div>
+  </div>
+</div>
 <canvas id="c"></canvas>
 <div id="mist" aria-hidden="true"></div>
 <div id="top" class="g">
@@ -182,16 +266,34 @@ body.sheet-open #dock{opacity:0;pointer-events:none;transition:opacity .2s}
 /* LAUNCH CONSIST: engine + 10 coaches × 10 seats = 100. +10 followers unlocks +1 coach. */
 addEventListener('error',e=>document.body.insertAdjacentHTML('beforeend',`<div class="g" style="left:50%;top:50%;transform:translate(-50%,-50%);padding:14px;max-width:80%;z-index:99">Something failed: ${e.message}. If it mentions THREE, check your internet connection.</div>`));
 const $=id=>document.getElementById(id),COACHES=10,SPC=10,BAYS=5,TOTAL=COACHES*SPC,CLEN=10;
+const boot={el:$('boot'),fill:$('bootFill'),pct:$('bootPct'),sub:$('bootSub'),v:0,done:false};
+function setBoot(p,msg){
+ if(boot.done)return;
+ boot.v=Math.max(boot.v,Math.min(100,p|0));
+ if(boot.fill)boot.fill.style.width=boot.v+'%';
+ if(boot.pct)boot.pct.textContent=boot.v+'%';
+ if(msg&&boot.sub)boot.sub.textContent=msg;
+ if(boot.el)boot.el.setAttribute('aria-valuenow',String(boot.v));
+}
+function hideBoot(){
+ if(boot.done)return;boot.done=true;setBoot(100,'Welcome aboard');
+ document.body.classList.remove('booting');
+ if(boot.el){boot.el.classList.add('out');boot.el.setAttribute('aria-busy','false');
+  setTimeout(()=>{try{boot.el.remove()}catch(e){}},600)}
+}
+setBoot(8,'Pulling into Unity Station…');
 const esc=t=>String(t).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
 const isMobile=()=>matchMedia('(max-width:819px), (pointer:coarse)').matches;
 const STATION_NAME='Unity Station';
 const IG_HANDLE='@infiniteexpress.live';
 const IG_URL='https://www.instagram.com/infiniteexpress.live/';
-const PILOT={role:'Loco Pilot',mission:'Orbit the train, tap a seat, and print your ticket. Watch the steam, ring the bell, and wait for departure — every boarded seat makes the Infinite Express feel more alive.'};
-const TIME_SCALE=8, GAME_DAY_MS=24*60*60*1000, FOLLOWER_GOAL=100, SAVE_KEY='ie_station_v3';
+/* First Reel for seat claims — replace with your pinned/first reel permalink when ready */
+const IG_REEL_URL='https://www.instagram.com/infiniteexpress.live/reels/';
+const PILOT={role:'Loco Pilot',mission:'One hundred strangers. One living train. Choose your window, claim it on Instagram, and watch the Express wake up as more people board — your seat isn’t just a number; it’s your place in the story.'};
+const TIME_SCALE=8, GAME_DAY_MS=24*60*60*1000, FOLLOWER_GOAL=100, SAVE_KEY='ie_station_v5';
 const seats=Array(TOTAL).fill(null);
 let df=.8,tod=.55,speed=0,sel=null,selPilot=false,selCoach=null,searchOpen=false,searchQ='',seatListOpen=false,revealedSeat=null,fc=0,last=0,departed=false,followers=0,viewCoach=0,rosterCount=0;
-function loadSave(){try{return JSON.parse(localStorage.getItem(SAVE_KEY)||'{}')}catch(e){return{}}}
+function loadSave(){try{return JSON.parse(localStorage.getItem(SAVE_KEY)||localStorage.getItem('ie_station_v4')||localStorage.getItem('ie_station_v3')||'{}')}catch(e){return{}}}
 function saveState(){localStorage.setItem(SAVE_KEY,JSON.stringify({startReal,followers,departed,seats:seats.map(p=>p?{name:p.name,h:p.h,dest:p.dest}:null)}))}
 const _save=loadSave();
 let startReal=_save.startReal||Date.now();
@@ -206,9 +308,28 @@ const seatUnlocked=k=>coachUnlocked(seatCoach(k));
 const cxp=c=>-c*CLEN;
 const coachLabel=c=>'Coach '+String(c+1).padStart(3,'0');
 const seatLabel=k=>String((k%SPC)+1).padStart(2,'0');
+const claimComment=k=>`${coachLabel(seatCoach(k))} · Seat #${seatLabel(k)}`;
 const normHandle=h=>{h=String(h||'').trim();if(!h)return'';if(h[0]!=='@')h='@'+h;return h.toLowerCase()};
 function mk(name,h,dest){return{name,h,dest}}
 function findSeatByHandle(q){const h=normHandle(q);if(!h)return-1;return seats.findIndex(p=>p&&normHandle(p.h)===h)}
+async function copyText(text){
+ try{if(navigator.clipboard&&navigator.clipboard.writeText){await navigator.clipboard.writeText(text);return true}}catch(e){}
+ try{
+  const ta=document.createElement('textarea');ta.value=text;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.left='-9999px';
+  document.body.appendChild(ta);ta.select();const ok=document.execCommand('copy');ta.remove();return ok;
+ }catch(e){return false}
+}
+/* Opens Instagram only — seats stay free until you manually lock them from comments */
+async function confirmBookTicket(k){
+ if(k==null||k<0||k>=TOTAL)return;
+ if(seats[k])return toast('That seat is already taken.');
+ const msg=claimComment(k);
+ const copied=await copyText(msg);
+ window.open(IG_REEL_URL,'_blank','noopener,noreferrer');
+ toast(copied
+  ? `${msg} copied — follow ${IG_HANDLE} and paste it on our first Reel comment.`
+  : `Comment this on our first Reel: ${msg}`);
+}
 function parsePrefSeat(p){
  const c=+(p.coach??p.coachNo??p.c),s=+(p.seat??p.seatNo??p.s);
  if(!Number.isFinite(c)||!Number.isFinite(s))return-1;
@@ -320,6 +441,7 @@ function downloadTicket(k){
  else{ticketImg.onload=paint;toast('Preparing ticket…')}
 }
 async function loadRoster(){
+ setBoot(72,'Checking the passenger roster…');
  try{
   const res=await fetch('assets/passengers.json',{cache:'no-store'});
   if(!res.ok)throw new Error('roster '+res.status);
@@ -331,6 +453,7 @@ async function loadRoster(){
   followers=Math.max(followers,seats.filter(Boolean).length);
  }
  rebuild();ui();
+ setBoot(92,'Warming the windows…');
 }
 function gameNow(){return startReal+(Date.now()-startReal)*TIME_SCALE}
 function gameElapsed(){return Math.max(0,gameNow()-startReal)}
@@ -342,9 +465,12 @@ function setFollowers(n){const prev=coachesOpen();followers=Math.max(0,Math.min(
  if(now===COACHES&&prev<COACHES)toast('100 followers — all 10 coaches unlocked (100 seats)!');
  else if(now>prev)toast(`${now-prev} coach${now-prev>1?'es':''} unlocked · ${now}/${COACHES} open · ${now*SPC} seats`);
  else toast(`Followers ${followers} · ${now}/${COACHES} coaches open`)}
+setBoot(22,'Starting the station…');
+if(typeof THREE==='undefined'){setBoot(100,'Could not load 3D engine');setTimeout(hideBoot,900)}
 const R=new THREE.WebGLRenderer({canvas:$('c'),antialias:!isMobile(),powerPreference:'high-performance'});
 R.setPixelRatio(Math.min(devicePixelRatio||1,isMobile()?1.75:2));
 const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(50,1,.5,2200),sky=new THREE.Color('#8ecdf5');
+setBoot(38,'Laying the tracks…');
 scene.background=sky;scene.fog=new THREE.Fog(sky,55,180); /* light mist — keeps consist readable */
 const hemi=new THREE.HemisphereLight(0xffffff,0x6a9a5a,.9),sun=new THREE.DirectionalLight(0xfff0d8,1.15);sun.position.set(-40,90,50);scene.add(hemi,sun);
 const head=new THREE.PointLight(0xffe6a0,0,45);scene.add(head);
@@ -592,6 +718,7 @@ const WHISTLE={x:.35,y:5.1}; // steam jet from whistle tip (local to lo)
 
 /* exhaust smoke from funnel — continuous while waiting/stopped */
 const puffs=new THREE.InstancedMesh(flat(new THREE.IcosahedronGeometry(.55,0)),L({color:0xd8d8d8}),28),age=Array.from({length:28},(_,i)=>i/28);puffs.frustumCulled=false;scene.add(puffs);
+setBoot(52,'Firing the boiler…');
 /* whistle steam from gold needle — only when needle sounds */
 const steam=new THREE.InstancedMesh(flat(new THREE.IcosahedronGeometry(.32,0)),L({color:0xf2f2f2}),16),steamAge=Array.from({length:16},()=>1);steam.frustumCulled=false;scene.add(steam);
 const WHISTLE_EVERY=20;let whistleBeat=-1,whistleT=0,audioReady=false,audioCtx=null,bellPullPrev=0;
@@ -687,7 +814,7 @@ const sg=new THREE.BufferGeometry(),sp=new Float32Array(1500);for(let i=0;i<500;
 sg.setAttribute('position',new THREE.BufferAttribute(sp,3));const stars=new THREE.Points(sg,new THREE.PointsMaterial({color:0xffffff,size:2.2,sizeAttenuation:false,transparent:true,fog:false}));scene.add(stars);
 
 function rebuild(){
- for(let i=0;i<TOTAL;i++){const open=seatUnlocked(i);wins.setColorAt(i,Col.set(sel===i?'#ffffff':!open?'#1b2236':seats[i]?'#ffcf7a':'#34405f'))}
+ for(let i=0;i<TOTAL;i++){wins.setColorAt(i,Col.set(sel===i?'#ffffff':(seats[i]?'#ffcf7a':'#34405f')))}
  wins.instanceColor.needsUpdate=true;
  for(let i=0;i<COACHES;i++){const open=coachUnlocked(i);bodyM.setColorAt(i,Col.set(open?'#f1e3c4':'#6a7168'))}
  if(bodyM.instanceColor)bodyM.instanceColor.needsUpdate=true}
@@ -764,16 +891,15 @@ function ui(){
  const P=$('panel');
  if(seatListOpen){
   openSheet(true);
-  const locked=!coachUnlocked(viewCoach);
   let rows='';
   for(let i=0;i<SPC;i++){
    const k=viewCoach*SPC+i,p=seats[k],sn=seatLabel(k);
-   const status=locked?'Locked':(p?'Taken':'Available');
-   const who=locked?'Coach closed':(p?(seatIsRevealed(k)?p.h:maskUser(p.h)):'Open window');
-   const cls=locked?'lock':(p?'taken':'open');
+   const status=p?'Taken':'Book ticket';
+   const who=p?(seatIsRevealed(k)?p.h:maskUser(p.h)):'Tap to claim on Instagram';
+   const cls=p?'taken':'book';
    rows+=`<button type="button" class="seatRow" data-seat="${k}"><span class="sn">#${sn}</span><span><b>Window ${sn}</b><div class="meta">${esc(who)}</div></span><span class="st ${cls}">${status}</span></button>`;
   }
-  P.innerHTML=`<div class="tk"><small>THE INFINITE EXPRESS</small><h2>${esc(coachLabel(viewCoach))}</h2><div class="mu">See which seats are available. Search your username to open your ticket.</div></div>
+  P.innerHTML=`<div class="tk"><small>THE INFINITE EXPRESS</small><h2>${esc(coachLabel(viewCoach))}</h2><div class="mu">Pick a window, confirm on Instagram, and comment your coach + seat. We lock seats after we verify.</div></div>
    <div class="seatList">${rows}</div>`;
   P.querySelectorAll('[data-seat]').forEach(btn=>{btn.onclick=()=>{revealedSeat=null;selectSeat(+btn.dataset.seat)}});
   return;
@@ -801,27 +927,24 @@ function ui(){
   <button class="full" id="lookTrain">👀 Look along the train</button>`;
   $('lookTrain').onclick=()=>{selPilot=false;selCoach=null;fxT=-36;radT=64;if(!isMobile())setPivot(-36,2.4,-1.5,'free');rebuild();ui();toast('Left drag orbit · right drag pan · scroll/middle zoom.');};return}
  if(sel==null){openSheet(false);P.innerHTML='';return}
- openSheet(true);const cn=seatCoach(sel),seatNo=String(sel%SPC+1).padStart(2,'0'),p=seats[sel],need=(cn+1)*10;
- if(!seatUnlocked(sel)){P.innerHTML=`<div class="tk"><small>${coachLabel(cn)}</small><h2>Seat #${seatNo}</h2><div class="mu">This coach is still closed.</div><hr><small>ON THE LINE</small><div class="dest">Explore the station, meet the Loco Pilot, and claim a seat once this coach opens on the Express.</div></div>
-  <button class="full" id="goPilot">🚂 Meet Loco Pilot</button>`;$('goPilot').onclick=selectPilot;return}
+ openSheet(true);
+ const cn=seatCoach(sel),seatNo=String(sel%SPC+1).padStart(2,'0'),p=seats[sel],msg=claimComment(sel);
  if(p){
   if(seatIsRevealed(sel)){
    P.innerHTML=`<div class="tk"><small>${coachLabel(cn)}</small><h2>Seat #${seatNo}</h2><b>${esc(p.name)}</b><div class="mu">${esc(p.h)}</div><hr><small>WHERE I'M GOING</small><div class="dest">“${esc(p.dest)}”</div></div>
     <button class="full" id="dlTicket2">⬇️ Download digital ticket</button>`;
    $('dlTicket2').onclick=()=>downloadTicket(sel);return;
   }
-  P.innerHTML=`<div class="tk"><small>${coachLabel(cn)}</small><h2>Seat #${seatNo}</h2><b>${esc(maskUser(p.h))}</b><div class="mu">Seat taken</div><hr><small>PRIVACY</small><div class="dest">Search your own username to reveal your ticket. Boarded handles stay masked for everyone else.</div></div>
+  P.innerHTML=`<div class="tk"><small>${coachLabel(cn)}</small><h2>Seat #${seatNo}</h2><b>${esc(maskUser(p.h))}</b><div class="mu">Seat taken</div><hr><small>PRIVACY</small><div class="dest">This place is locked. Search your own username if it’s yours.</div></div>
    <button class="full" id="goSearchSeat">🔍 Find my seat</button>`;
   $('goSearchSeat').onclick=()=>openSearch();return;
  }
- P.innerHTML=`<div class="tk"><small>${coachLabel(cn)}</small><h2>Seat #${seatNo}</h2><div class="mu">This seat is waiting for you.</div></div>
-  <input id="fh" placeholder="@your_user_id" autocomplete="username" enterkeyhint="next" autocapitalize="off" spellcheck="false">
-  <input id="fd" maxlength="60" placeholder="Where I'm going…" enterkeyhint="done">
-  <button class="full" id="fb">🎫 Print my ticket</button>`;
- const fh=$('fh'),fd=$('fd');fh.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();fd.focus()}});
- fd.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();$('fb').click()}});
- $('fb').onclick=()=>{const h=fh.value.trim().replace(/^@?/,'@'),d=fd.value.trim();if(h.length<3||!d)return toast('Add your user ID and where you’re going.');if(seats.some(q=>q&&q.h==h))return toast('That user ID already has a seat.');
-  seats[sel]=mk(h.slice(1),h,d);saveState();toast('Ticket printed! Welcome aboard.');rebuild();ui()};if(isMobile())setTimeout(()=>fh.focus(),320)}
+ P.innerHTML=`<div class="tk"><small>${coachLabel(cn)}</small><h2>Seat #${seatNo}</h2><div class="mu">Book this window on the Express</div><hr><small>ON THE LINE</small><div class="dest">Follow ${esc(IG_HANDLE)}, then comment <b>${esc(msg)}</b> on our first Reel. After we verify your comment, this seat is locked for you.</div></div>
+  <button class="full" id="confirmBook">🎫 Confirm book ticket</button>
+  <button class="full" id="goPilotFree" style="margin-top:8px;opacity:.9">🚂 Meet Loco Pilot</button>`;
+ $('confirmBook').onclick=()=>confirmBookTicket(sel);
+ $('goPilotFree').onclick=selectPilot;
+}
 $('px').onclick=$('scrim').onclick=()=>{sel=null;selPilot=false;selCoach=null;searchOpen=false;searchQ='';seatListOpen=false;revealedSeat=null;rebuild();ui()};
 $('toCoach').onclick=()=>openCoachWindows();
 $('pv').onclick=()=>goCoach(viewCoach-1);$('nt').onclick=()=>goCoach(viewCoach+1);
@@ -1045,14 +1168,27 @@ function pulseIgTip(){
 }
 setTimeout(pulseIgTip,1800);
 setInterval(pulseIgTip,20000);
-rebuild();ui();resize();requestAnimationFrame(frame);loadRoster();
+setBoot(58,'Assembling the Express…');
+rebuild();ui();resize();
+(async()=>{
+ try{
+  await loadRoster();
+  setBoot(100,'Welcome aboard');
+  requestAnimationFrame(()=>requestAnimationFrame(hideBoot));
+ }catch(e){
+  setBoot(100,'Welcome aboard');
+  hideBoot();
+ }
+})();
+requestAnimationFrame(frame);
 
 /* ?reel=1 — clean on-screen boarding animation for Instagram capture */
 (function(){
  const q=new URLSearchParams(location.search);
  if(!q.has('reel'))return;
  document.documentElement.classList.add('reel');
- ['top','dock','dockToggle','igBtn','searchBtn','infoBtn','volBtn','igTip','helpPop','sheet','scrim','msg'].forEach(id=>{const el=$(id);if(el)el.style.display='none'});
+ hideBoot();
+ ['top','dock','dockToggle','igBtn','searchBtn','infoBtn','volBtn','igTip','helpPop','sheet','scrim','msg','boot'].forEach(id=>{const el=$(id);if(el)el.style.display='none'});
  const oldRebuild=rebuild;
  rebuild=function(){
   for(let i=0;i<TOTAL;i++){

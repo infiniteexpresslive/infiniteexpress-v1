@@ -5,5 +5,24 @@
   "description": "The Infinite Express — Unity Station boarding experience",
   "scripts": {
     "start": "npx --yes serve -l 5173 ."
+  },
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://infiniteexpresslive@github.com/infiniteexpresslive/infiniteexpress-v1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/infiniteexpresslive/infiniteexpress-v1/issues"
+  },
+  "homepage": "https://github.com/infiniteexpresslive/infiniteexpress-v1#readme",
+  "dependencies": {
+    "playwright": "^1.65.0"
   }
 }
