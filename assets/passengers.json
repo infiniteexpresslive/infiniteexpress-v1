@@ -1,130 +1,130 @@
 {
-  "updatedAt": "2026-11-13T07:02:00+05:30",
+  "updatedAt": "2026-11-13T09:25:00+05:30",
   "note": "Admin roster. Optional coach (1-10) + seat (1-10) pin a rider. Omit them to fill the next free seat from the front. See ROSTER.md.",
   "passengers": [
     {
       "h": "@x.vlad.14",
       "name": "Vlad",
-      "dest": "Unity Station — Happy Journey",
+      "dest": "Emerald Forest",
       "coach": 1,
       "seat": 1
     },
     {
       "h": "@moziyadi",
       "name": "Lemoziyadi",
-      "dest": "Unity Station — Happy Journey",
+      "dest": "Ocean Crest",
       "coach": 1,
       "seat": 2
     },
     {
       "h": "@kaarim.25",
       "name": "Kaarim",
-      "dest": "Unity Station — Happy Journey",
+      "dest": "Silver Canyon",
       "coach": 1,
       "seat": 3
     },
     {
       "h": "@onur__erdem53",
       "name": "Hüseyin onur Erdem",
-      "dest": "Unity Station — Happy Journey",
+      "dest": "Golden Prairie",
       "coach": 1,
       "seat": 4
     },
     {
       "h": "@justice_ea22",
       "name": "Justice",
-      "dest": "Unity Station — Happy Journey",
+      "dest": "Unity Station & Beyond",
       "coach": 1,
       "seat": 5
     },
     {
       "h": "@bunny.reflavor",
       "name": "bunny.reflavor",
-      "dest": "Unity Station — Happy Journey",
+      "dest": "Starlight Summit",
       "coach": 1,
       "seat": 6
     },
     {
       "h": "@itsznott_jenn",
       "name": "Jenn",
-      "dest": "Unity Station — Happy Journey",
+      "dest": "Echo Springs",
       "coach": 1,
       "seat": 7
     },
     {
       "h": "@nataliey2kk",
       "name": "Natalie",
-      "dest": "Unity Station — Happy Journey",
+      "dest": "Alpine Ridge",
       "coach": 1,
       "seat": 9
     },
     {
       "h": "@acemaycry",
       "name": "Ace",
-      "dest": "Unity Station — Happy Journey",
+      "dest": "Sunset Coast",
       "coach": 1,
       "seat": 10
     },
     {
       "h": "@neohaxs",
       "name": "neohaxs",
-      "dest": "Unity Station — Happy Journey",
+      "dest": "Neon Horizon",
       "coach": 2,
       "seat": 1
     },
     {
       "h": "@yagizguler006",
       "name": "yagiz güler",
-      "dest": "Unity Station — Happy Journey",
+      "dest": "Solitude Bay",
       "coach": 2,
       "seat": 2
     },
     {
       "h": "@yourz_rik",
       "name": "yourz_rik",
-      "dest": "Unity Station — Happy Journey",
+      "dest": "Midnight Valley",
       "coach": 2,
       "seat": 3
     },
     {
       "h": "@jewel.ikk",
       "name": "Jewel",
-      "dest": "Unity Station — Happy Journey",
+      "dest": "Crystal Lake",
       "coach": 2,
       "seat": 4
     },
     {
       "h": "@7_spooky254",
       "name": "George kimani",
-      "dest": "Unity Station — Happy Journey",
+      "dest": "Highland Pass",
       "coach": 2,
       "seat": 6
     },
     {
       "h": "@tuta13_cz",
       "name": "tuta",
-      "dest": "Unity Station — Happy Journey",
+      "dest": "Misty Haven",
       "coach": 2,
       "seat": 7
     },
     {
       "h": "@_mbohlahmales",
       "name": "Kenyiknyiknyik",
-      "dest": "Unity Station — Happy Journey",
+      "dest": "Northern Aurora",
       "coach": 2,
       "seat": 8
     },
     {
       "h": "@vlad.ncl01",
       "name": "vlad.ncl",
-      "dest": "Unity Station — Happy Journey",
+      "dest": "Cedar Point",
       "coach": 2,
       "seat": 9
     },
     {
       "h": "@4bvvxz",
       "name": "4bvvxz",
-      "dest": "Unity Station — Happy Journey",
+      "dest": "Whispering Pines",
       "coach": 2,
       "seat": 10
     }

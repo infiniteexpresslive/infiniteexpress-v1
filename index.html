@@ -1684,7 +1684,7 @@
     /* First Reel for seat claims — replace with your pinned/first reel permalink when ready */
     const IG_REEL_URL = 'https://www.instagram.com/infiniteexpress.live/reels/';
     const PILOT = { role: 'Loco Pilot', mission: 'One hundred strangers. One living train. Choose your window, claim it on Instagram, and watch the Express wake up as more people board — your seat isn’t just a number; it’s your place in the story.' };
-    const TIME_SCALE = 8, GAME_DAY_MS = 24 * 60 * 60 * 1000, FOLLOWER_GOAL = 100, SAVE_KEY = 'ie_station_v7';
+    const TIME_SCALE = 8, GAME_DAY_MS = 24 * 60 * 60 * 1000, FOLLOWER_GOAL = 100, SAVE_KEY = 'ie_station_v8';
     const seats = Array(TOTAL).fill(null);
     let df = .8, tod = .55, speed = 0, sel = null, selPilot = false, selCoach = null, searchOpen = false, searchQ = '', seatListOpen = false, revealedSeat = null, fc = 0, last = 0, departed = false, followers = 18, viewCoach = 0, rosterCount = 0;
     function loadSave() { try { return JSON.parse(localStorage.getItem(SAVE_KEY) || '{}') } catch (e) { return {} } }
@@ -1711,8 +1711,7 @@
         if (!p) return false;
         const ph = normHandle(p.h).toLowerCase();
         const pRaw = ph.replace(/^@/, '');
-        const pName = String(p.name || '').toLowerCase();
-        return ph === h || pRaw === rawQuery || pName.includes(rawQuery);
+        return ph === h || pRaw === rawQuery;
       });
     }
     async function copyText(text) {
@@ -1754,6 +1753,22 @@
       for (let k = 0; k < TOTAL; k++)if (!seats[k]) return k;
       return -1;
     }
+    const RANDOM_DESTINATIONS = [
+      'Emerald Forest', 'Echo Springs', 'Silver Canyon', 'Unity Station & Beyond',
+      'Midnight Valley', 'Solitude Bay', 'Sunset Coast', 'Highland Pass',
+      'Alpine Ridge', 'Neon Horizon', 'Cedar Point', 'Northern Aurora',
+      'Golden Prairie', 'Whispering Pines', 'Crystal Lake', 'Ocean Crest',
+      'Starlight Summit', 'Misty Haven', 'Amber Valley', 'Celestial Dunes'
+    ];
+    function getDest(rawDest, h, index) {
+      if (rawDest && rawDest.trim() && rawDest !== 'Wherever the Express goes' && rawDest !== 'Unity Station — Happy Journey') {
+        return rawDest.trim();
+      }
+      let hash = 0;
+      const s = String(h || index || '');
+      for (let i = 0; i < s.length; i++) hash = (hash * 31 + s.charCodeAt(i)) >>> 0;
+      return RANDOM_DESTINATIONS[(hash + (index || 0)) % RANDOM_DESTINATIONS.length];
+    }
     function placeAt(k, pass) { if (k < 0 || k >= TOTAL || seats[k]) return false; seats[k] = pass; return true }
     function applyRoster(list) {
       for (let i = 0; i < TOTAL; i++) seats[i] = null;
@@ -1761,7 +1776,8 @@
       (list || []).forEach(raw => {
         const h = normHandle(raw.h || raw.handle || raw.username); if (!h || h.length < 3 || seen.has(h)) return;
         seen.add(h);
-        rows.push({ h, dest: raw.dest || raw.location || 'Wherever the Express goes', pref: parsePrefSeat(raw), name: raw.name || h.slice(1) });
+        const dest = getDest(raw.dest || raw.location, h, rows.length);
+        rows.push({ h, dest, pref: parsePrefSeat(raw), name: raw.name || h.slice(1) });
       });
       rosterCount = rows.length;
       const placed = new Set();
@@ -2510,7 +2526,12 @@
       }
       return best;
     }
-    function maskUser(h) { const s = String(h || '').replace(/^@/, ''); if (!s) return '###***'; const keep = Math.min(4, Math.max(1, s.length - 2)); return '@' + s.slice(0, keep) + '###***' }
+    function maskUser(h) {
+      const s = String(h || '').replace(/^@/, '');
+      if (!s) return '###***';
+      const keep = Math.min(3, s.length);
+      return '@' + s.slice(0, keep) + '*'.repeat(Math.max(3, s.length - keep));
+    }
     function pickAt(clientX, clientY) {
       mp.set(clientX / innerWidth * 2 - 1, -(clientY / innerHeight) * 2 + 1); ray.setFromCamera(mp, cam);
       const eng = ray.intersectObjects(enginePick, true); if (eng.length) return selectPilot();
@@ -2544,7 +2565,9 @@
       rebuild(); ui(); toast('Loco Pilot at the controls.');
     }
     function selectSeat(k) {
-      searchOpen = false; seatListOpen = false; revealedSeat = k; sel = cl(k, 0, TOTAL - 1); selPilot = false; viewCoach = seatCoach(sel); selCoach = viewCoach;
+      searchOpen = false; seatListOpen = false;
+      if (revealedSeat !== k) revealedSeat = null;
+      sel = cl(k, 0, TOTAL - 1); selPilot = false; viewCoach = seatCoach(sel); selCoach = viewCoach;
       focusCoachCam(viewCoach, 16);
       if (isMobile()) {
         radT = 24;
@@ -2593,11 +2616,11 @@
         for (let i = 0; i < SPC; i++) {
           const k = viewCoach * SPC + i, p = seats[k], sn = seatLabel(k);
           const status = p ? 'Taken' : 'Book ticket';
-          const who = p ? (p.name ? `${p.name} (${p.h})` : p.h) : 'Tap to claim on Instagram';
+          const who = p ? (seatIsRevealed(k) ? p.h : maskUser(p.h)) : 'Tap to claim on Instagram';
           const cls = p ? 'taken' : 'book';
           rows += `<button type="button" class="seatRow" data-seat="${k}"><span class="sn">#${sn}</span><span><b>Window ${sn}</b><div class="meta">${esc(who)}</div></span><span class="st ${cls}">${status}</span></button>`;
         }
-        P.innerHTML = `<div class="tk"><small>THE INFINITE EXPRESS</small><h2>${esc(coachLabel(viewCoach))}</h2><div class="mu">Tap any booked window to view &amp; download their digital ticket, or choose an empty window to book.</div></div>
+        P.innerHTML = `<div class="tk"><small>THE INFINITE EXPRESS</small><h2>${esc(coachLabel(viewCoach))}</h2><div class="mu">Choose a window to inspect. Search your Instagram ID to unlock and download your ticket.</div></div>
    <div class="seatList">${rows}</div>`;
         P.querySelectorAll('[data-seat]').forEach(btn => { btn.onclick = () => { selectSeat(+btn.dataset.seat) } });
         return;
@@ -2630,9 +2653,14 @@
       openSheet(true);
       const cn = seatCoach(sel), seatNo = String(sel % SPC + 1).padStart(2, '0'), p = seats[sel], msg = claimComment(sel);
       if (p) {
-        P.innerHTML = `<div class="tk"><small>${coachLabel(cn)}</small><h2>Seat #${seatNo}</h2><b>${esc(p.name)}</b><div class="mu">${esc(p.h)}</div><hr><small>WHERE I'M GOING</small><div class="dest">“${esc(p.dest)}”</div></div>
+        if (seatIsRevealed(sel)) {
+          P.innerHTML = `<div class="tk"><small>${coachLabel(cn)}</small><h2>Seat #${seatNo}</h2><b>${esc(p.name)}</b><div class="mu">${esc(p.h)}</div><hr><small>WHERE I'M GOING</small><div class="dest">“${esc(p.dest)}”</div></div>
   <button class="full" id="dlTicket2">⬇️ Download digital ticket</button>`;
-        $('dlTicket2').onclick = () => downloadTicket(sel); return;
+          $('dlTicket2').onclick = () => downloadTicket(sel); return;
+        }
+        P.innerHTML = `<div class="tk"><small>${coachLabel(cn)}</small><h2>Seat #${seatNo}</h2><b>${esc(maskUser(p.h))}</b><div class="mu">Seat taken &amp; locked</div><hr><small>PRIVACY PROTECTED</small><div class="dest">This seat is verified. If this is your window, search your Instagram username to unlock your digital ticket.</div></div>
+  <button class="full" id="goSearchSeat">🔍 Find &amp; unlock my ticket</button>`;
+        $('goSearchSeat').onclick = () => openSearch(); return;
       }
       P.innerHTML = `<div class="tk"><small>${coachLabel(cn)}</small><h2>Seat #${seatNo}</h2><div class="mu">Book this window on the Express</div><hr><small>ON THE LINE</small><div class="dest">Follow ${esc(IG_HANDLE)}, then comment <b>${esc(msg)}</b> on our first Reel. After we verify your comment, this seat is locked for you.</div></div>
   <button class="full" id="confirmBook">🎫 Confirm book ticket</button>
