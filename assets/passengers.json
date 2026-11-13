@@ -1,5 +1,132 @@
 {
-  "updatedAt": "2026-11-12T00:18:00+05:30",
+  "updatedAt": "2026-11-13T07:02:00+05:30",
   "note": "Admin roster. Optional coach (1-10) + seat (1-10) pin a rider. Omit them to fill the next free seat from the front. See ROSTER.md.",
-  "passengers": []
+  "passengers": [
+    {
+      "h": "@x.vlad.14",
+      "name": "Vlad",
+      "dest": "Unity Station — Happy Journey",
+      "coach": 1,
+      "seat": 1
+    },
+    {
+      "h": "@moziyadi",
+      "name": "Lemoziyadi",
+      "dest": "Unity Station — Happy Journey",
+      "coach": 1,
+      "seat": 2
+    },
+    {
+      "h": "@kaarim.25",
+      "name": "Kaarim",
+      "dest": "Unity Station — Happy Journey",
+      "coach": 1,
+      "seat": 3
+    },
+    {
+      "h": "@onur__erdem53",
+      "name": "Hüseyin onur Erdem",
+      "dest": "Unity Station — Happy Journey",
+      "coach": 1,
+      "seat": 4
+    },
+    {
+      "h": "@justice_ea22",
+      "name": "Justice",
+      "dest": "Unity Station — Happy Journey",
+      "coach": 1,
+      "seat": 5
+    },
+    {
+      "h": "@bunny.reflavor",
+      "name": "bunny.reflavor",
+      "dest": "Unity Station — Happy Journey",
+      "coach": 1,
+      "seat": 6
+    },
+    {
+      "h": "@itsznott_jenn",
+      "name": "Jenn",
+      "dest": "Unity Station — Happy Journey",
+      "coach": 1,
+      "seat": 7
+    },
+    {
+      "h": "@nataliey2kk",
+      "name": "Natalie",
+      "dest": "Unity Station — Happy Journey",
+      "coach": 1,
+      "seat": 9
+    },
+    {
+      "h": "@acemaycry",
+      "name": "Ace",
+      "dest": "Unity Station — Happy Journey",
+      "coach": 1,
+      "seat": 10
+    },
+    {
+      "h": "@neohaxs",
+      "name": "neohaxs",
+      "dest": "Unity Station — Happy Journey",
+      "coach": 2,
+      "seat": 1
+    },
+    {
+      "h": "@yagizguler006",
+      "name": "yagiz güler",
+      "dest": "Unity Station — Happy Journey",
+      "coach": 2,
+      "seat": 2
+    },
+    {
+      "h": "@yourz_rik",
+      "name": "yourz_rik",
+      "dest": "Unity Station — Happy Journey",
+      "coach": 2,
+      "seat": 3
+    },
+    {
+      "h": "@jewel.ikk",
+      "name": "Jewel",
+      "dest": "Unity Station — Happy Journey",
+      "coach": 2,
+      "seat": 4
+    },
+    {
+      "h": "@7_spooky254",
+      "name": "George kimani",
+      "dest": "Unity Station — Happy Journey",
+      "coach": 2,
+      "seat": 6
+    },
+    {
+      "h": "@tuta13_cz",
+      "name": "tuta",
+      "dest": "Unity Station — Happy Journey",
+      "coach": 2,
+      "seat": 7
+    },
+    {
+      "h": "@_mbohlahmales",
+      "name": "Kenyiknyiknyik",
+      "dest": "Unity Station — Happy Journey",
+      "coach": 2,
+      "seat": 8
+    },
+    {
+      "h": "@vlad.ncl01",
+      "name": "vlad.ncl",
+      "dest": "Unity Station — Happy Journey",
+      "coach": 2,
+      "seat": 9
+    },
+    {
+      "h": "@4bvvxz",
+      "name": "4bvvxz",
+      "dest": "Unity Station — Happy Journey",
+      "coach": 2,
+      "seat": 10
+    }
+  ]
 }
