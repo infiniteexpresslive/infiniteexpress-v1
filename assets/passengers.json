@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-13T22:33:00+05:30",
+  "updatedAt": "2026-11-14T18:49:00+05:30",
   "note": "Admin roster. Optional coach (1-10) + seat (1-10) pin a rider. Existing seats stay fixed; new handles without a claim get a random free seat. See ROSTER.md.",
   "passengers": [
     {
@@ -80,6 +80,13 @@
       "seat": 1
     },
     {
+      "h": "@abhirup_shh7",
+      "name": "abhirup_shh7",
+      "dest": "Highland Pass",
+      "coach": 2,
+      "seat": 2
+    },
+    {
       "h": "@yourz_rik",
       "name": "yourz_rik",
       "dest": "Midnight Valley",
@@ -94,9 +101,16 @@
       "seat": 4
     },
     {
-      "h": "@7_spooky254",
-      "name": "George kimani",
-      "dest": "Highland Pass",
+      "h": "@the_heaven_beast.gr",
+      "name": "the_heaven_beast.gr",
+      "dest": "Celestial Dunes",
+      "coach": 2,
+      "seat": 5
+    },
+    {
+      "h": "@mike.p1135",
+      "name": "mike.p1135",
+      "dest": "Whispering Pines",
       "coach": 2,
       "seat": 6
     },
@@ -122,20 +136,6 @@
       "seat": 9
     },
     {
-      "h": "@4bvvxz",
-      "name": "4bvvxz",
-      "dest": "Whispering Pines",
-      "coach": 2,
-      "seat": 10
-    },
-    {
-      "h": "@the_heaven_beast.gr",
-      "name": "the_heaven_beast.gr",
-      "dest": "Celestial Dunes",
-      "coach": 2,
-      "seat": 5
-    },
-    {
       "h": "@boomika23_",
       "name": "boomika23_",
       "dest": "Amber Valley",
@@ -143,9 +143,9 @@
       "seat": 1
     },
     {
-      "h": "@sahanasri_ramachandran",
-      "name": "sahanasri_ramachandran",
-      "dest": "Echo Springs",
+      "h": "@pooja._.13_",
+      "name": "pooja._.13_",
+      "dest": "Ocean Crest",
       "coach": 3,
       "seat": 6
     },
@@ -157,11 +157,25 @@
       "seat": 7
     },
     {
+      "h": "@sahanasri_ramachandran",
+      "name": "sahanasri_ramachandran",
+      "dest": "Echo Springs",
+      "coach": 3,
+      "seat": 8
+    },
+    {
       "h": "@clitt_worship",
       "name": "clitt_worship",
       "dest": "Northern Aurora",
       "coach": 3,
       "seat": 9
+    },
+    {
+      "h": "@rodigerdodiger2584",
+      "name": "rodigerdodiger2584",
+      "dest": "Golden Prairie",
+      "coach": 3,
+      "seat": 10
     }
   ]
 }
