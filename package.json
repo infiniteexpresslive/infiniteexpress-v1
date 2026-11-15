@@ -4,7 +4,9 @@
   "private": true,
   "description": "The Infinite Express — Unity Station boarding experience",
   "scripts": {
-    "start": "npx --yes serve -l 5173 ."
+    "start": "npx --yes serve -l 5173 .",
+    "protect": "node scripts/protect.mjs",
+    "serve:protected": "npm run protect && npx --yes serve -l 5174 dist"
   },
   "main": "index.js",
   "directories": {
@@ -24,5 +26,9 @@
   "homepage": "https://github.com/infiniteexpresslive/infiniteexpress-v1#readme",
   "dependencies": {
     "playwright": "^1.65.0"
+  },
+  "devDependencies": {
+    "html-minifier-terser": "^7.2.0",
+    "javascript-obfuscator": "^5.10.1"
   }
 }

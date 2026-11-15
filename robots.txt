@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Disallow: /.env
+Disallow: /.git
+Disallow: /wp-admin
+Disallow: /video-studio.html
+Disallow: /manual-record.html
+Disallow: /personal-log.html
+Disallow: /reel.html
+Disallow: /scripts/
+Disallow: /docs/
+
+Sitemap: /sitemap.xml

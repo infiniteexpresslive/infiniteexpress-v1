@@ -1,6 +1,9 @@
 # Dependencies
 node_modules/
 
+# Protected Cloudflare build output (rebuild with npm run protect)
+dist/
+
 # Logs and temporary files
 *.log
 *.tmp
