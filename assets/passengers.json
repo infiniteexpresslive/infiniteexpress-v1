@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-11-17T18:45:00+05:30",
-  "note": "Admin roster. Optional coach (1-10) + seat (1-10) pin a rider. Existing seats stay fixed; new handles without a claim get a random free seat. See ROSTER.md.",
+  "updatedAt": "2026-11-20T18:34:00+05:30",
+  "note": "Admin roster. Optional coach (1-10) + seat (1-10) pin a rider. Existing seats stay fixed; new handles without a claim fill empty seats coach-by-coach. See ROSTER.md.",
   "passengers": [
     {
       "h": "@x.vlad.14",
@@ -10,9 +10,9 @@
       "seat": 1
     },
     {
-      "h": "@moziyadi",
-      "name": "Lemoziyadi",
-      "dest": "Ocean Crest",
+      "h": "@j.clo17",
+      "name": "j.clo17",
+      "dest": "Crystal Lake",
       "coach": 1,
       "seat": 2
     },
@@ -38,9 +38,9 @@
       "seat": 5
     },
     {
-      "h": "@bunny.reflavor",
-      "name": "bunny.reflavor",
-      "dest": "Starlight Summit",
+      "h": "@leung_91",
+      "name": "leung_91",
+      "dest": "Silver Canyon",
       "coach": 1,
       "seat": 6
     },
@@ -73,9 +73,9 @@
       "seat": 10
     },
     {
-      "h": "@neohaxs",
-      "name": "neohaxs",
-      "dest": "Neon Horizon",
+      "h": "@leoksjhdna",
+      "name": "leoksjhdna",
+      "dest": "Highland Pass",
       "coach": 2,
       "seat": 1
     },
@@ -136,9 +136,9 @@
       "seat": 9
     },
     {
-      "h": "@_kavinkathirvel_",
-      "name": "Kavin",
-      "dest": "Riverbend Crossing",
+      "h": "@mayank_moonboy24",
+      "name": "mayank_moonboy24",
+      "dest": "Misty Haven",
       "coach": 2,
       "seat": 10
     },
@@ -148,6 +148,34 @@
       "dest": "Amber Valley",
       "coach": 3,
       "seat": 1
+    },
+    {
+      "h": "@nio.lbx",
+      "name": "nio.lbx",
+      "dest": "Riverbend Crossing",
+      "coach": 3,
+      "seat": 2
+    },
+    {
+      "h": "@yoichi_ziyad",
+      "name": "yoichi_ziyad",
+      "dest": "Midnight Valley",
+      "coach": 3,
+      "seat": 3
+    },
+    {
+      "h": "@emaleacharlie",
+      "name": "emaleacharlie",
+      "dest": "Whispering Pines",
+      "coach": 3,
+      "seat": 4
+    },
+    {
+      "h": "@ctsgtchez",
+      "name": "ctsgtchez",
+      "dest": "Emerald Forest",
+      "coach": 3,
+      "seat": 5
     },
     {
       "h": "@pooja._.13_",
@@ -183,6 +211,153 @@
       "dest": "Golden Prairie",
       "coach": 3,
       "seat": 10
+    },
+    {
+      "h": "@samuelvany10",
+      "name": "samuelvany10",
+      "dest": "Echo Springs",
+      "coach": 4,
+      "seat": 1
+    },
+    {
+      "h": "@serbanmc20",
+      "name": "serbanmc20",
+      "dest": "Echo Springs",
+      "coach": 4,
+      "seat": 2
+    },
+    {
+      "h": "@axl_the_one",
+      "name": "axl_the_one",
+      "dest": "Cedar Point",
+      "coach": 4,
+      "seat": 3
+    },
+    {
+      "h": "@elpidonio",
+      "name": "elpidonio",
+      "dest": "Cedar Point",
+      "coach": 4,
+      "seat": 4
+    },
+    {
+      "h": "@mirzaan857",
+      "name": "mirzaan857",
+      "dest": "Celestial Dunes",
+      "coach": 4,
+      "seat": 5
+    },
+    {
+      "h": "@t.ceerny",
+      "name": "t.ceerny",
+      "dest": "Celestial Dunes",
+      "coach": 4,
+      "seat": 6
+    },
+    {
+      "h": "@da_guch47",
+      "name": "da_guch47",
+      "dest": "Highland Pass",
+      "coach": 4,
+      "seat": 7
+    },
+    {
+      "h": "@kimedwardmallari",
+      "name": "kimedwardmallari",
+      "dest": "Whispering Pines",
+      "coach": 4,
+      "seat": 8
+    },
+    {
+      "h": "@akritha_rj",
+      "name": "akritha_rj",
+      "dest": "Alpine Ridge",
+      "coach": 4,
+      "seat": 9
+    },
+    {
+      "h": "@benboi.123",
+      "name": "benboi.123",
+      "dest": "Emerald Forest",
+      "coach": 4,
+      "seat": 10
+    },
+    {
+      "h": "@alex.urbuc",
+      "name": "alex.urbuc",
+      "dest": "Whispering Pines",
+      "coach": 5,
+      "seat": 1
+    },
+    {
+      "h": "@turkun_demir",
+      "name": "turkun_demir",
+      "dest": "Amber Valley",
+      "coach": 5,
+      "seat": 2
+    },
+    {
+      "h": "@joond0303",
+      "name": "joond0303",
+      "dest": "Echo Springs",
+      "coach": 5,
+      "seat": 3
+    },
+    {
+      "h": "@latina_xoxox",
+      "name": "latina_xoxox",
+      "dest": "Silver Canyon",
+      "coach": 5,
+      "seat": 4
+    },
+    {
+      "h": "@autobusarovposlik",
+      "name": "autobusarovposlik",
+      "dest": "Starlight Summit",
+      "coach": 5,
+      "seat": 5
+    },
+    {
+      "h": "@miswangpanis",
+      "name": "miswangpanis",
+      "dest": "Highland Pass",
+      "coach": 5,
+      "seat": 6
+    },
+    {
+      "h": "@youfess_10",
+      "name": "youfess_10",
+      "dest": "Highland Pass",
+      "coach": 5,
+      "seat": 7
+    },
+    {
+      "h": "@amaya_grace9",
+      "name": "amaya_grace9",
+      "dest": "Golden Prairie",
+      "coach": 5,
+      "seat": 8
+    },
+    {
+      "h": "@giorgos_gkamanis",
+      "name": "giorgos_gkamanis",
+      "dest": "Neon Horizon",
+      "coach": 5,
+      "seat": 9
+    },
+    {
+      "h": "@ahmed.xx2xx",
+      "name": "ahmed.xx2xx",
+      "dest": "Emerald Forest",
+      "coach": 5,
+      "seat": 10
+    },
+    {
+      "h": "@concerned_dog22222",
+      "name": "concerned_dog22222",
+      "dest": "Sunset Coast",
+      "coach": 6,
+      "seat": 1
     }
   ]
 }
